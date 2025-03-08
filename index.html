@@ -1,0 +1,118 @@
+<!-- Samruddhi Pradeep Deshmukh - G01520038 , Frouzina Saleem , Rutuja More
+
+Html page for the student survey form , it has a form where the student enters the information like name , address, zipcode , telephone etc, its hosted on Amazon EC2 -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Survey Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: url('george.jpg') no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding: 20px;
+        }
+        form {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            margin: auto;
+        }
+        label, p {
+            display: block;
+            margin-top: 10px;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        button[type="reset"] {
+            background-color: #dc3545;
+        }
+        button:hover {
+            opacity: 0.8;
+        }
+    </style>
+    <script>
+        function validateForm(event) {
+            let checkboxes = document.querySelectorAll('input[name="liked[]"]:checked');
+            if (checkboxes.length === 0) {
+                alert("Please select at least one option for what you liked most about the campus.");
+                event.preventDefault();
+                return false;
+            }
+            
+            let raffleInput = document.querySelector('input[name="raffle"]').value;
+            let raffleNumbers = raffleInput.split(',').map(num => num.trim());
+            if (raffleNumbers.length < 10 || !raffleNumbers.every(num => num.match(/^([1-9][0-9]?|100)$/))) {
+                alert("Please enter at least 10 valid comma-separated numbers between 1 and 100 in the raffle field.");
+                event.preventDefault();
+                return false;
+            }
+            return true;
+        }
+    </script>
+</head>
+<body>
+    <h2 style="text-align: center; color: rgb(0, 0, 0);">Student Survey Form</h2>
+    <form action="#" method="post" onsubmit="return validateForm(event)">
+        <label>First Name: <input type="text" name="first_name" required></label>
+        <label>Last Name: <input type="text" name="last_name" required></label>
+        <label>Street Address: <input type="text" name="street_address" required></label>
+        <label>City: <input type="text" name="city" required></label>
+        <label>State: <input type="text" name="state" required></label>
+        <label>Zip: <input type="text" name="zip" required></label>
+        <label>Telephone Number: <input type="tel" name="telephone" required></label>
+        <label>Email: <input type="email" name="email" required></label>
+        <label>Date of Survey: <input type="date" name="survey_date" required></label>
+        
+        <p>What did you like most about the campus?</p>
+        <label><input type="checkbox" name="liked[]" value="students"> Students</label>
+        <label><input type="checkbox" name="liked[]" value="location"> Location</label>
+        <label><input type="checkbox" name="liked[]" value="campus"> Campus</label>
+        <label><input type="checkbox" name="liked[]" value="atmosphere"> Atmosphere</label>
+        <label><input type="checkbox" name="liked[]" value="dorm_rooms"> Dorm Rooms</label>
+        <label><input type="checkbox" name="liked[]" value="sports"> Sports</label>
+        
+        <p>How did you become interested in the university?</p>
+        <label><input type="radio" name="interest" value="friends" required> Friends</label>
+        <label><input type="radio" name="interest" value="television"> Television</label>
+        <label><input type="radio" name="interest" value="internet"> Internet</label>
+        <label><input type="radio" name="interest" value="other"> Other</label>
+        
+        <p>Likelihood of recommending this school:</p>
+        <select name="recommendation">
+            <option value="very_likely">Very Likely</option>
+            <option value="likely">Likely</option>
+            <option value="unlikely">Unlikely</option>
+        </select>
+        
+        <p>Raffle (Enter at least 10 comma-separated numbers from 1-100):</p>
+        <input type="text" name="raffle" required>
+        
+        <p>Additional Comments:</p>
+        <textarea name="comments" rows="4" cols="50"></textarea>
+        
+        <button type="submit">Submit</button>
+        <button type="reset">Cancel</button>
+
+        <button onclick="window.location.href='http://swe645assignment1-3feb25.s3-website.us-east-2.amazonaws.com'">Go back to Samruddhi's blog</button>
+        
+    </form>
+</body>
+</html>
